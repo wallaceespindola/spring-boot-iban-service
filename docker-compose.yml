@@ -1,0 +1,27 @@
+services:
+  iban-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: spring-boot-iban-service:latest
+    container_name: iban-service
+    ports:
+      - "8080:8080"
+    environment:
+      # Optional: override JVM options
+      - JAVA_OPTS=-XX:MaxRAMPercentage=75 -Djava.security.egd=file:/dev/./urandom
+      # Optional: use Spring profiles
+      # - SPRING_PROFILES_ACTIVE=prod
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "java -cp /app/app.jar org.springframework.boot.loader.tools.JarLauncher --help > /dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M

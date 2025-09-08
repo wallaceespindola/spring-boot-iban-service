@@ -28,13 +28,47 @@ Ships with a static **index.html** to try it out, unit tests, a Postman collecti
 ```bash
 mvn spring-boot:run
 # or
-mvn -DskipTests package && java -jar target/spring-boot-iban-service-0.0.2-SNAPSHOT.jar
+mvn -DskipTests package && java -jar target/spring-boot-iban-service-0.0.1-SNAPSHOT.jar
 ```
 
 Open:
 - `http://localhost:8080/` (Test UI)
 - `http://localhost:8080/swagger-ui.html` (Swagger UI)
 - `http://localhost:8080/v3/api-docs` (OpenAPI JSON)
+
+## Docker
+Build the image (multi-stage Dockerfile):
+```bash
+docker build -t spring-boot-iban-service:latest .
+```
+
+Run the container:
+```bash
+docker run --rm -p 8080:8080 --name iban-service \
+  -e JAVA_OPTS="-XX:MaxRAMPercentage=75 -Djava.security.egd=file:/dev/./urandom" \
+  spring-boot-iban-service:latest
+```
+
+Open:
+- `http://localhost:8080/`
+- `http://localhost:8080/swagger-ui.html`
+
+## Docker Compose
+Use the provided `docker-compose.yml` to build and run:
+```bash
+docker compose up --build
+# or (detached)
+docker compose up --build -d
+```
+
+Stop and remove resources:
+```bash
+docker compose down
+```
+
+Environment variables:
+- `JAVA_OPTS` to adjust JVM settings.
+- `SPRING_PROFILES_ACTIVE` to select Spring profile (e.g., `prod`).
 
 ## Endpoints
 - `GET /api/iban/{country}/generate` → random valid IBAN for the country (length + mod97). Returns `{country, iban, message, timestamp}`.
