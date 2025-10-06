@@ -9,7 +9,7 @@
 ![Maven](https://img.shields.io/badge/Powered_by-Maven-pink)
 ![Swagger](https://img.shields.io/badge/Docs_by-Swagger-yellow)
 ![OpenAPI](https://img.shields.io/badge/Specs_by-OpenAPI-purple)
-[![CI](https://github.com/wallaceespindola/structured-comm-full/actions/workflows/ci.yml/badge.svg)](https://github.com/wallaceespindola/structured-comm-full/actions/workflows/ci.yml)
+[![CI](https://github.com/wallaceespindola/spring-boot-iban-service/actions/workflows/ci.yml/badge.svg)](https://github.com/wallaceespindola/spring-boot-iban-service/actions/workflows/ci.yml)
 
 ## Introduction
 
