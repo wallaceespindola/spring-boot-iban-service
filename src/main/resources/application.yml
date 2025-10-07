@@ -11,6 +11,37 @@ management:
   endpoint:
     health:
       show-details: always
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+    build:
+      enabled: true
+
+info:
+  app:
+    name: IBAN Generator & Validator Service
+    description: REST API service for generating and validating IBANs according to ISO 13616 standard
+    version: '@project.version@'
+    encoding: '@project.build.sourceEncoding@'
+    java:
+      version: '@java.version@'
+  contact:
+    email: support@example.com
+    url: https://github.com/wallaceespindola/spring-boot-iban-service
+  features:
+    - IBAN validation using mod-97 algorithm
+    - Belgium IBAN generation with BBAN checksum
+    - Generic IBAN generation for multiple countries
+    - OpenAPI/Swagger documentation
+  technologies:
+    framework: Spring Boot 3.5.6
+    language: Java 21
+    build-tool: Maven
+    api-docs: springdoc-openapi 2.8.13
 
 # springdoc OpenAPI configuration
 springdoc:
