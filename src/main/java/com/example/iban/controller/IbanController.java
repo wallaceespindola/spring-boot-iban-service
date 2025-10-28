@@ -50,6 +50,7 @@ public class IbanController {
         return Map.of(
                 "country", country.toUpperCase(),
                 "iban", gi.iban(),
+                "bban", gi.bban(),
                 "message", gi.message(),
                 "timestamp", gi.timestamp()
         );
@@ -68,6 +69,7 @@ public class IbanController {
         return Map.of(
                 "country", "BE",
                 "iban", gi.iban(),
+                "bban", gi.iban(),
                 "timestamp", gi.timestamp()
         );
     }

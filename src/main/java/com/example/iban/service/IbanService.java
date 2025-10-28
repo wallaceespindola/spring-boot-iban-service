@@ -16,7 +16,7 @@ public class IbanService {
         Map<String, Integer> map = IbanValidator.countryLengthMap();
         Integer len = map.get(cc);
         if (len == null) {
-            return new GeneratedIban(null, "unsupported country: " + cc, Instant.now().toString());
+            return new GeneratedIban(null, null,"unsupported country: " + cc, Instant.now().toString());
         }
         int bbanLen = len - 4;
         String bban = randomDigits(bbanLen);
@@ -26,7 +26,7 @@ public class IbanService {
         int check = 98 - mod;
         String checkStr = String.format(Locale.ROOT, "%02d", check);
         String iban = cc + checkStr + bban;
-        return new GeneratedIban(iban, "OK", Instant.now().toString());
+        return new GeneratedIban(iban, bban, "OK", Instant.now().toString());
     }
 
     public static IbanValidator.ValidationResult validate(String iban) {
@@ -39,5 +39,5 @@ public class IbanService {
         return sb.toString();
     }
 
-    public record GeneratedIban(String iban, String message, String timestamp) {}
+    public record GeneratedIban(String iban, String bban, String message, String timestamp) {}
 }

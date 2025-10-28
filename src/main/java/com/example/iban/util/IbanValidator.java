@@ -10,28 +10,40 @@ public final class IbanValidator {
 
     private IbanValidator() {}
 
+    private enum Country {
+        AL(28), AD(24), AT(20), AZ(28),
+        BA(20), BE(16), BG(22), CH(21),
+        CY(28), CZ(24), DE(22), DK(18),
+        EE(20), ES(24), FI(18), FO(18),
+        FR(27), GB(22), GI(23), GL(18),
+        GR(27), HR(21), HU(28), IE(22),
+        IS(26), IT(27), LI(21), LT(20),
+        LU(20), LV(21), MC(27), MD(24),
+        ME(22), MK(19), MT(31), NL(18),
+        NO(15), PL(28), PT(25), RO(24),
+        RS(22), SA(24), SE(24), SI(19),
+        SK(24), SM(27), TR(26), UA(29),
+        XK(20), AE(23), BH(22), CR(22),
+        DO(28), EG(29), GE(22), GT(28),
+        IQ(23), JO(30), KW(30), KZ(20),
+        LB(28), LC(32), MR(27), MU(30),
+        PK(24), PS(29), QA(29), SC(31),
+        SV(28), TL(23), TN(24), VG(24),
+        BY(28), VA(22);
+
+        private final int length;
+
+        Country(int length) { this.length = length; }
+
+        public int length() { return length; }
+    }
+
     private static final Map<String, Integer> COUNTRY_IBAN_LENGTH;
     static {
         Map<String, Integer> m = new HashMap<>();
-        m.put("AL", 28); m.put("AD", 24); m.put("AT", 20); m.put("AZ", 28);
-        m.put("BA", 20); m.put("BE", 16); m.put("BG", 22); m.put("CH", 21);
-        m.put("CY", 28); m.put("CZ", 24); m.put("DE", 22); m.put("DK", 18);
-        m.put("EE", 20); m.put("ES", 24); m.put("FI", 18); m.put("FO", 18);
-        m.put("FR", 27); m.put("GB", 22); m.put("GI", 23); m.put("GL", 18);
-        m.put("GR", 27); m.put("HR", 21); m.put("HU", 28); m.put("IE", 22);
-        m.put("IS", 26); m.put("IT", 27); m.put("LI", 21); m.put("LT", 20);
-        m.put("LU", 20); m.put("LV", 21); m.put("MC", 27); m.put("MD", 24);
-        m.put("ME", 22); m.put("MK", 19); m.put("MT", 31); m.put("NL", 18);
-        m.put("NO", 15); m.put("PL", 28); m.put("PT", 25); m.put("RO", 24);
-        m.put("RS", 22); m.put("SA", 24); m.put("SE", 24); m.put("SI", 19);
-        m.put("SK", 24); m.put("SM", 27); m.put("TR", 26); m.put("UA", 29);
-        m.put("XK", 20); m.put("AE", 23); m.put("BH", 22); m.put("CR", 22);
-        m.put("DO", 28); m.put("EG", 29); m.put("GE", 22); m.put("GT", 28);
-        m.put("IQ", 23); m.put("JO", 30); m.put("KW", 30); m.put("KZ", 20);
-        m.put("LB", 28); m.put("LC", 32); m.put("MR", 27); m.put("MU", 30);
-        m.put("PK", 24); m.put("PS", 29); m.put("QA", 29); m.put("SC", 31);
-        m.put("SV", 28); m.put("TL", 23); m.put("TN", 24); m.put("VG", 24);
-        m.put("BY", 28); m.put("VA", 22);
+        for (Country c : Country.values()) {
+            m.put(c.name(), c.length());
+        }
         COUNTRY_IBAN_LENGTH = Collections.unmodifiableMap(m);
     }
 
