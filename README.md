@@ -1,6 +1,6 @@
 ![Java](https://cdn.icon-icons.com/icons2/2699/PNG/512/java_logo_icon_168609.png)
 
-# IBAN Generator & Validator (Spring Boot, Java 21)
+# Banking IBAN Generator & Validator (Spring Boot, Java 21)
 
 ![Apache 2.0 License](https://img.shields.io/badge/License-Apache2.0-orange)
 ![Java](https://img.shields.io/badge/Built_with-Java21-blue)
@@ -13,7 +13,7 @@
 
 ## Introduction
 
-This service exposes REST endpoints to **generate** valid IBANs (per country) and **validate** IBANs using the ISO 13616 **mod‑97** logic. 
+This service exposes REST endpoints to **generate** valid banking IBANs (per country) and **validate** IBANs using the ISO 13616 **mod‑97** logic. 
 Includes a dedicated **Belgium (BE)** generator that also respects the local BBAN checksum. 
 Ships with a static **index.html** to try it out, unit tests, a Postman collection, and **Swagger UI / OpenAPI** docs.
 
