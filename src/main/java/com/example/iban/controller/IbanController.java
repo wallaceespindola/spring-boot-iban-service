@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -39,21 +40,29 @@ public class IbanController {
             summary = "Generate a valid IBAN for a given country",
             description = "Generates a structurally valid IBAN (correct length and check digits). BBAN is randomized.",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Generated IBAN with timestamp")
+                    @ApiResponse(responseCode = "200", description = "Generated IBAN with timestamp"),
+                    @ApiResponse(responseCode = "400", description = "Unsupported country code")
             }
     )
     @GetMapping("/{country}/generate")
-    public Map<String, Object> generate(
+    public ResponseEntity<Map<String, Object>> generate(
             @Parameter(description = "2-letter country code (ISO 3166-1 alpha-2)", example = "BE")
             @PathVariable String country) {
         IbanService.GeneratedIban gi = IbanService.generateForCountry(country);
-        return Map.of(
+        if (gi.iban() == null) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "country", country.toUpperCase(),
+                    "message", gi.message(),
+                    "timestamp", gi.timestamp()
+            ));
+        }
+        return ResponseEntity.ok(Map.of(
                 "country", country.toUpperCase(),
                 "iban", gi.iban(),
                 "bban", gi.bban(),
                 "message", gi.message(),
                 "timestamp", gi.timestamp()
-        );
+        ));
     }
 
     @Operation(
@@ -69,7 +78,7 @@ public class IbanController {
         return Map.of(
                 "country", "BE",
                 "iban", gi.iban(),
-                "bban", gi.iban(),
+                "bban", gi.bban(),
                 "timestamp", gi.timestamp()
         );
     }

@@ -11,7 +11,7 @@ public class BelgiumIbanGenerator {
 
     /**
      * Belgium IBAN structure: BEkk bbbb bbbb bbbc
-     * BBAN = 12 digits: 3 bank + 7 account + 2 checksum (mod 97, 97 -> 97)
+     * BBAN = 12 digits: 3 bank + 7 account + 2 checksum (first 10 digits mod 97, 0 -> 97)
      */
     public static GeneratedIban generate() {
         int bank = 100 + RNG.nextInt(900); // 3 digits, not starting with 0
@@ -22,8 +22,7 @@ public class BelgiumIbanGenerator {
         for (int i = 0; i < base10.length(); i++) {
             mod = (mod * 10 + (base10.charAt(i) - '0')) % 97;
         }
-        int bbanChecksum = 97 - mod;
-        if (bbanChecksum == 0) bbanChecksum = 97;
+        int bbanChecksum = mod == 0 ? 97 : mod;
         String bban = base10 + String.format(Locale.ROOT, "%02d", bbanChecksum);
         String country = "BE";
         String with00 = country + "00" + bban;
@@ -32,8 +31,8 @@ public class BelgiumIbanGenerator {
         int check = 98 - mod2;
         String checkStr = String.format(Locale.ROOT, "%02d", check);
         String iban = country + checkStr + bban;
-        return new GeneratedIban(iban, Instant.now().toString());
+        return new GeneratedIban(iban, bban, Instant.now().toString());
     }
 
-    public record GeneratedIban(String iban, String timestamp) {}
+    public record GeneratedIban(String iban, String bban, String timestamp) {}
 }

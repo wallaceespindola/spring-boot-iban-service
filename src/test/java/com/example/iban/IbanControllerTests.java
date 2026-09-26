@@ -39,4 +39,12 @@ class IbanControllerTests {
                 .andExpect(jsonPath("$.valid").exists())
                 .andExpect(jsonPath("$.timestamp").exists());
     }
+
+    @Test
+    void unsupportedCountryReturnsBadRequest() throws Exception {
+        mvc.perform(get("/api/iban/ZZ/generate"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("unsupported country: ZZ"))
+                .andExpect(jsonPath("$.timestamp").exists());
+    }
 }

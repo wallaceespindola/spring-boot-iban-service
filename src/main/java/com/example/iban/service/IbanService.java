@@ -18,6 +18,11 @@ public class IbanService {
         if (len == null) {
             return new GeneratedIban(null, null,"unsupported country: " + cc, Instant.now().toString());
         }
+        if ("BE".equals(cc)) {
+            // Random BE BBANs would fail the national checksum; reuse the Belgium-specific generator.
+            BelgiumIbanGenerator.GeneratedIban be = BelgiumIbanGenerator.generate();
+            return new GeneratedIban(be.iban(), be.bban(), "OK", be.timestamp());
+        }
         int bbanLen = len - 4;
         String bban = randomDigits(bbanLen);
         String temp = cc + "00" + bban;
