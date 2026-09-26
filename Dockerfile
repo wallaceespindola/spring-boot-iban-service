@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/root/.m2 \
     mvn -q -DskipTests package
 
 # ----- Runtime stage -----
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:24-jre
 WORKDIR /app
 
 # Copy the built jar from the builder stage
