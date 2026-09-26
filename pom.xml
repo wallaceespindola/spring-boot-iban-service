@@ -14,6 +14,14 @@
     <name>spring-boot-iban-service</name>
     <description>IBAN generator and validator (Java 21, Spring Boot, OpenAPI)</description>
 
+    <developers>
+        <developer>
+            <name>Wallace Espindola</name>
+            <email>wallace.espindola@gmail.com</email>
+            <url>https://github.com/wallaceespindola/</url>
+        </developer>
+    </developers>
+
     <properties>
         <java.version>21</java.version>
         <spring.boot.version>3.5.16</spring.boot.version>
