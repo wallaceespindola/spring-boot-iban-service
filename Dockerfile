@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 # ----- Build stage -----
-FROM maven:3-eclipse-temurin-24 AS builder
+FROM maven:3-eclipse-temurin-26 AS builder
 WORKDIR /workspace
 
 # Copy only pom first to maximize dependency caching
